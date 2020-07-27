@@ -1,9 +1,9 @@
-package com.asleonov.chat.service
+package com.asleonov.chat.facade
 
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
-interface CrudService<T> {
+interface CrudFacade<T> {
 
     fun findAll(): Flux<T>
 

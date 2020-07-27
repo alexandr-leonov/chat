@@ -10,9 +10,5 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>chat-common</artifactId>
-    <version>0.1</version>
-    <groupId>com.asleonov.chat</groupId>
-    <packaging>jar</packaging>
-    <name>chat-common</name>
 
 </project>

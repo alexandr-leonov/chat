@@ -1,10 +1,13 @@
-drop table person;
+--drop table person;
 
 create table person (
-    personId bigserial primary key,
+    person_id serial primary key,
     username varchar(100),
     password varchar(256),
     name varchar(100)
 );
 
-insert into person (username, password, name) values ('admin', 'admin', 'admin');
+insert into person (person_id, username, password, name) values (DEFAULT, 'admin', 'admin', 'admin');
+
+-- check person table
+select * from person;

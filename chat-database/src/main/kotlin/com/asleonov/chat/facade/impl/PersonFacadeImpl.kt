@@ -1,14 +1,14 @@
-package com.asleonov.chat.service.impl
+package com.asleonov.chat.facade.impl
 
 import com.asleonov.chat.entity.Person
+import com.asleonov.chat.facade.CrudFacade
 import com.asleonov.chat.repository.PersonRepository
-import com.asleonov.chat.service.CrudService
-import org.springframework.stereotype.Service
+import org.springframework.stereotype.Component
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
-@Service
-class PersonServiceImpl(val personRepository: PersonRepository) : CrudService<Person> {
+@Component
+class PersonFacadeImpl(val personRepository: PersonRepository) : CrudFacade<Person> {
     override fun findAll(): Flux<Person> = personRepository.findAll()
 
     override fun update(t: Person): Mono<Person> = personRepository.save(t)
