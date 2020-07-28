@@ -7,16 +7,16 @@ import java.util.*
 
 data class Message(@Id
                    @JsonProperty("message_id")
-                   var messageId: Long? = 0,
+                   var messageId: Long? = null,
                    @JsonProperty("person_id")
-                   var personId: Long? = 0,
+                   var personId: Long? = null,
                    @JsonProperty("dialog_id")
-                   var dialogId: Long? = 0,
+                   var dialogId: Long? = null,
                    var text: String? = null,
                    @JsonProperty("creation_date")
                    var creationDate: LocalDateTime? = null,
                    @JsonProperty("who_reads")
                    var whoReads: List<Long>? = Collections.emptyList()) {
     // for bean creation
-    constructor(): this(0, 0, 0, null, null, Collections.emptyList())
+    constructor(): this(null, null, null, null, null, Collections.emptyList())
 }

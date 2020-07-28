@@ -3,8 +3,10 @@ package com.asleonov.chat.service
 import com.asleonov.chat.entity.Person
 import com.asleonov.chat.facade.CrudFacade
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
+import java.lang.IllegalArgumentException
 
 @Service
 open class PersonService(val personFacade: CrudFacade<Person>) {
@@ -16,21 +18,13 @@ open class PersonService(val personFacade: CrudFacade<Person>) {
     /*
      * Update only not null fields
      */
-    fun update(person: Person): Mono<Person> {
-        return personFacade.find(person)
-                .flatMap { findPerson ->
-                    if (person.name.isNullOrBlank()) person.name = findPerson.name
-                    if (person.username.isNullOrBlank()) person.username = findPerson.username
-                    if (person.password.isNullOrBlank()) person.password = findPerson.password
+    @Transactional
+    fun update(person: Person): Mono<Person> = personFacade.update(person)
 
-                    return@flatMap personFacade.update(person)
-                }
-                // When user not found need create him
-                .switchIfEmpty(personFacade.update(person))
-    }
-
+    @Transactional
     fun delete(person: Person): Mono<Person> = personFacade.delete(person)
 
+    @Transactional
     fun deleteAll(): Mono<Void> = personFacade.deleteAll()
 
 }

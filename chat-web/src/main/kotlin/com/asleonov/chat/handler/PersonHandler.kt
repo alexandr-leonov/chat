@@ -5,6 +5,7 @@ import com.asleonov.chat.service.PersonService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse
 import org.springframework.web.reactive.function.server.body
@@ -27,6 +28,7 @@ class PersonHandler(val personService: PersonService) {
                         .collectList())
     }
 
+    @Transactional
     fun create(serverRequest: ServerRequest): Mono<ServerResponse> = serverRequest.bodyToMono(Person::class.java)
             .flatMap { body ->
                 log.debug("create person by params {}", body)

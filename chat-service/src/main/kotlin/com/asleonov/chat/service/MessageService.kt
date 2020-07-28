@@ -4,6 +4,7 @@ import com.asleonov.chat.dto.CreateMessageRequest
 import com.asleonov.chat.entity.Message
 import com.asleonov.chat.facade.CrudFacade
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import java.time.LocalDateTime
@@ -16,6 +17,7 @@ class MessageService(val messageFacade: CrudFacade<Message>) {
 
     fun findById(id: Long) : Mono<Message> = messageFacade.find(Message(id))
 
+    @Transactional
     fun create(body: CreateMessageRequest): Mono<Message> {
         val message = Message()
         message.personId = body.authorId
