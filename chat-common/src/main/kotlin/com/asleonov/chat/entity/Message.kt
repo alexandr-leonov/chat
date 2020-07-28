@@ -13,7 +13,9 @@ data class Message(@Id
                    @JsonProperty("dialog_id")
                    var dialogId: Long? = 0,
                    var text: String? = null,
+                   @JsonProperty("creation_date")
                    var creationDate: LocalDateTime? = null,
+                   @JsonProperty("who_reads")
                    var whoReads: List<Long>? = Collections.emptyList()) {
     // for bean creation
     constructor(): this(0, 0, 0, null, null, Collections.emptyList())

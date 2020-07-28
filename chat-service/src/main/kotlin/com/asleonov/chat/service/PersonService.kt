@@ -7,16 +7,30 @@ import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
 @Service
-open class PersonService(val crudFacade: CrudFacade<Person>) {
+open class PersonService(val personFacade: CrudFacade<Person>) {
 
-    fun findAll(): Flux<Person> = crudFacade.findAll()
+    fun findAll(): Flux<Person> = personFacade.findAll()
 
-    fun findById(id: Long): Mono<Person> = crudFacade.find(Person(id, "","",""))
+    fun findById(id: Long): Mono<Person> = personFacade.find(Person(id))
 
-    fun update(t:Person): Mono<Person> = crudFacade.update(t)
+    /*
+     * Update only not null fields
+     */
+    fun update(person: Person): Mono<Person> {
+        return personFacade.find(person)
+                .flatMap { findPerson ->
+                    if (person.name.isNullOrBlank()) person.name = findPerson.name
+                    if (person.username.isNullOrBlank()) person.username = findPerson.username
+                    if (person.password.isNullOrBlank()) person.password = findPerson.password
 
-    fun delete(t:Person): Mono<Person> = crudFacade.delete(t)
+                    return@flatMap personFacade.update(person)
+                }
+                // When user not found need create him
+                .switchIfEmpty(personFacade.update(person))
+    }
 
-    fun deleteAll(): Mono<Void> = crudFacade.deleteAll()
+    fun delete(person: Person): Mono<Person> = personFacade.delete(person)
+
+    fun deleteAll(): Mono<Void> = personFacade.deleteAll()
 
 }

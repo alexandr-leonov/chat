@@ -10,9 +10,10 @@ data class Dialog(@Id
                   @JsonProperty("dialog_id")
                   var dialogId: Long? = 0,
                   var name: String? = null,
+                  @JsonProperty("last_used_date")
                   var lastUsedDate: LocalDateTime? = null,
-                  var countUnreadMessages: Int? = 0,
+                  @JsonProperty("person_ids")
                   var personIds: List<Long>? = Collections.emptyList()) {
     // for bean creation
-    constructor(): this(0, null, null,0, Collections.emptyList())
+    constructor(): this(0, null, null, Collections.emptyList())
 }
