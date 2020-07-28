@@ -5,10 +5,12 @@ import org.springframework.data.annotation.Id
 
 data class Person(@Id
                   @JsonProperty("person_id")
-                  val personId: Long,
-                  val username: String,
-                  val password: String,
-                  val name: String) {
+                  var personId: Long? = 0,
+                  var username: String? = null,
+                  var password: String? = null,
+                  var name: String? = null) {
     // for bean creation
-    constructor(): this(0, "", "", "")
+    constructor(): this(0, null, null, null)
+
+    constructor(id: Long): this(id, null, null, null)
 }

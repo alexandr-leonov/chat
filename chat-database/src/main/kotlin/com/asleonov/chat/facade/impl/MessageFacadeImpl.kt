@@ -13,9 +13,9 @@ class MessageFacadeImpl(val messageRepository: MessageRepository) : CrudFacade<M
 
     override fun update(message: Message): Mono<Message> = messageRepository.save(message)
 
-    override fun delete(message: Message): Mono<Message> = messageRepository.deleteById(message.messageId).thenReturn(message)
+    override fun delete(message: Message): Mono<Message> = messageRepository.deleteById(message.messageId!!).thenReturn(message)
 
     override fun deleteAll(): Mono<Void> = messageRepository.deleteAll()
 
-    override fun find(t: Message): Mono<Message> = messageRepository.findById(t.messageId)
+    override fun find(t: Message): Mono<Message> = messageRepository.findById(t.messageId!!)
 }

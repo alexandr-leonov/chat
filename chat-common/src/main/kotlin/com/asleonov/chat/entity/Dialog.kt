@@ -8,11 +8,11 @@ import java.util.*
 
 data class Dialog(@Id
                   @JsonProperty("dialog_id")
-                  val dialogId: Long,
-                  val name: String,
-                  val lastUsedDate: LocalDateTime,
-                  val countUnreadMessages: Int,
-                  val personIds: List<Long>) {
+                  var dialogId: Long? = 0,
+                  var name: String? = null,
+                  var lastUsedDate: LocalDateTime? = null,
+                  var countUnreadMessages: Int? = 0,
+                  var personIds: List<Long>? = Collections.emptyList()) {
     // for bean creation
-    constructor(): this(0, "", LocalDateTime.now(),0, Collections.emptyList())
+    constructor(): this(0, null, null,0, Collections.emptyList())
 }

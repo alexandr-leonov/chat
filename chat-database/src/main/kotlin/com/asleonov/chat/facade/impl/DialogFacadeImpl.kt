@@ -13,10 +13,10 @@ class DialogFacadeImpl(val dialogRepository: DialogRepository) : CrudFacade<Dial
 
     override fun update(dialog: Dialog): Mono<Dialog> = dialogRepository.save(dialog)
 
-    override fun delete(dialog: Dialog): Mono<Dialog> = dialogRepository.deleteById(dialog.dialogId).thenReturn(dialog)
+    override fun delete(dialog: Dialog): Mono<Dialog> = dialogRepository.deleteById(dialog.dialogId!!).thenReturn(dialog)
 
     override fun deleteAll(): Mono<Void> = dialogRepository.deleteAll()
 
-    override fun find(t: Dialog): Mono<Dialog> = dialogRepository.findById(t.dialogId)
+    override fun find(t: Dialog): Mono<Dialog> = dialogRepository.findById(t.dialogId!!)
 
 }
